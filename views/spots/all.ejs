@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Spots</title>
-</head>
-<body>
+<% layout('layouts/boilerplate') %> 
+
     <h1>All Spots</h1><br>
 
     <div>
@@ -18,5 +11,3 @@
         <li><a href="/spots/<%= spot._id %>"><%= spot.title %> , <%= spot.description %> - <%= spot.location %></a></li>    
         <% } %> 
     </ul>
-</body>
-</html>
