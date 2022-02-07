@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show Page</title>
-</head>
-<body>
-    <div>
-        <a href="/spots">All Spots</a>
-    </div>
+<% layout('layouts/boilerplate') %> 
+
     <div>       
          <a href="/spots/<%= spot._id %>/edit">Edit Spot</a>
     </div>
@@ -21,5 +11,3 @@
          <form action="/spots/<%=spot._id%>?_method=DELETE" method="POST">
          <button type="submit">Delete</button>
         </form>
-</body>
-</html>
