@@ -5,6 +5,19 @@
 
     <ul>
         <% for(let spot of spots){ %>
-        <li><a href="/spots/<%= spot._id %>"><%= spot.title %> , <%= spot.description %> - <%= spot.location %></a></li>    
+            <div class="card" mb-3>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= spot.title %> </h5>
+                            <p class="card-text"><%= spot.description %></p>
+                            <p class="card-text">
+                                <small class="text-muted"><%= spot.location%></small>
+                            </p>
+                            <a class="btn btn-primary" href="/spots/<%=spot._id%>">View <%=spot.title%></a>
+                        </div>
+                    </div>
+                </div>
+            </div>   
         <% } %> 
     </ul>

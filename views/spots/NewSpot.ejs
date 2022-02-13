@@ -1,13 +1,24 @@
 <% layout('layouts/boilerplate') %> 
 
-<h1>Make a new spot:</h1>
-
-    <form action="/spots" method="post">
-      <label for="title">Title:</label><br>
-      <input type="text" id="title" name="title" required><br>
-      <label for="description">Description:</label><br>
-      <input type="text" id="description" name="description" required><br>
-      <label for="location">Location:</label><br>
-      <input type="text" id="location" name="location" required><br>
-      <input type="submit" value="Submit">
-    </form>
+    <div class="row">
+      <h1 class="text-center">New Spot</h1>
+      <div class="col-6 offset-3">
+          <form action="/spots" method="POST">
+              <div class="mb-3">
+                <label for="title">Title:</label><br>
+                <input type="text" id="title" name="title" required>
+              </div>
+              <div class="mb-3">
+                <label for="description">Description:</label><br>
+                <input type="text" id="description" name="description" required>
+              </div>
+              <div class="mb-3">
+                <label for="location">Location:</label><br>
+                <input type="text" id="location" name="location" required>
+              </div>
+              <div class="mb-3">
+                  <button class="btn btn-success">Add Spot</button>
+              </div>
+          </form>
+      </div>
+  </div>

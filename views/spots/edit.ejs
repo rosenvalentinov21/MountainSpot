@@ -1,16 +1,29 @@
 <% layout('layouts/boilerplate') %> 
 
-    <div>
-        <a href="/spots">All Spots</a>
+      <div class="row">
+        <h1 class="text-center">Edit Spot</h1>
+        <div class="col-6 offset-3">
+            <form action="/spots/<%=spot._id%>?_method=PUT" method="POST">
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" id="title" name="title"
+                        value="<%=spot.title %>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <input class="form-control" type="text" id="description" name="description"
+                        value="<%=spot.description %>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location</label>
+                    <input class="form-control" type="text" id="location" name="location"
+                        value="<%=spot.location %>">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-info">Update Spot</button>
+                </div>
+            </form>
+            <a href="/spots/<%= spot._id%>">Back To Spot</a>
+    
+        </div>
     </div>
-
-    <h1>Edit Spot</h1>
-    <form action="/spots/<%=spot._id%>?_method=PUT" method="POST">
-        <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" value="<%= spot.title %> " required><br>
-        <label for="description">Description:</label><br>
-        <input type="text" id="description" name="description" value="<%= spot.description %>" required><br>
-        <label for="location">Location:</label><br>
-        <input type="text" id="location" name="location" value="<%= spot.location %>" required><br>
-        <input type="submit" value="Submit">
-      </form>
