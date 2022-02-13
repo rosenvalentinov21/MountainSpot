@@ -7,10 +7,10 @@
     <h1>Edit Spot</h1>
     <form action="/spots/<%=spot._id%>?_method=PUT" method="POST">
         <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" value="<%= spot.title %> "><br>
+        <input type="text" id="title" name="title" value="<%= spot.title %> " required><br>
         <label for="description">Description:</label><br>
-        <input type="text" id="description" name="description" value="<%= spot.description %>"><br>
+        <input type="text" id="description" name="description" value="<%= spot.description %>" required><br>
         <label for="location">Location:</label><br>
-        <input type="text" id="location" name="location" value="<%= spot.location %>"><br>
+        <input type="text" id="location" name="location" value="<%= spot.location %>" required><br>
         <input type="submit" value="Submit">
       </form>
