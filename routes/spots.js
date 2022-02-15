@@ -64,6 +64,7 @@ router.route('/:id')
         res.redirect('/spots');
     }));
 
+    //Manages requests to the reviews object in Spot
     router.post('/:id/reviews' ,validateReview , catchAsync(async (req , res) => {
         const spot = await Spot.findById(req.params.id);
         const review = new Review(req.body);
@@ -71,6 +72,13 @@ router.route('/:id')
         await review.save();
         await spot.save();
         res.redirect(`/spots/${spot._id}`);
+    }))
+
+    router.delete('/:id/reviews/:reviewId', catchAsync(async (req, res) => {
+        const { id, reviewId } = req.params;
+        await Spot.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+        await Review.findByIdAndDelete(reviewId);
+        res.redirect(`/spots/${id}`);
     }))
 
 module.exports = router;
