@@ -21,7 +21,7 @@ const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
+        throw new expressError(msg, 400)
     } else {
         next();
     }
@@ -50,7 +50,7 @@ router.get('/:id/edit' , catchAsync(async (req , res) => {
 
 router.route('/:id')
     .get(catchAsync(async (req , res) => {
-        const spot = await Spot.findById(req.params.id).populate('reviews');;
+        const spot = await Spot.findById(req.params.id).populate('reviews');
         res.render('spots/show' , {spot});
     }))
     .put(validateSpot ,catchAsync(async (req , res) =>{

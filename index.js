@@ -3,7 +3,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
-const Spot = require('./models/spot');
 const spots = require('./routes/spots');
 
 mongoose.connect('mongodb://localhost:27017/mountain-spot', {
@@ -38,7 +37,6 @@ app.use((err, req, res, next) => {
 app.get('/', (req, res) => {
     res.render('index.ejs')
 });
-
 
 app.listen(port , () => {
     console.log(`Listening on port ${port}`);
