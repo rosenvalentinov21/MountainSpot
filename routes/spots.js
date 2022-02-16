@@ -6,6 +6,7 @@ const expressError = require('../middleware/expressError');
 const {spotSchema} = require('../middleware/spotSchema');
 const Review = require('../models/review');
 const {reviewSchema} = require('../middleware/reviewSchema');
+const {isLoggedIn} = require('../middleware/isLoggedIn');
 
 const validateSpot = (req, res, next) => {
     const { error } = spotSchema.validate(req.body);
@@ -27,7 +28,7 @@ const validateReview = (req, res, next) => {
     }
 }
 
-router.get('/new' , (req , res) => {
+router.get('/new', isLoggedIn , (req , res) => {
     res.render('spots/NewSpot');
 })
 
@@ -37,14 +38,14 @@ router.route('/')
     const spots = await Spot.find({});
     res.render('spots/all' , {spots})
     }))
-    .post(validateSpot ,catchAsync(async (req , res) => {
+    .post(isLoggedIn, validateSpot, catchAsync(async (req , res) => {
         const spot = new Spot(req.body);
         await spot.save();
         req.flash('success', 'Successfully made a new spot!');
         res.redirect(`spots/${spot._id}`);
     }))
 
-router.get('/:id/edit' , catchAsync(async (req , res) => {
+router.get('/:id/edit', isLoggedIn, catchAsync(async (req , res) => {
     const spot = await Spot.findById(req.params.id);
     if(!spot)
     {
@@ -64,13 +65,13 @@ router.route('/:id')
         }
         res.render('spots/show' , {spot});
     }))
-    .put(validateSpot ,catchAsync(async (req , res) =>{
+    .put(validateSpot, isLoggedIn, catchAsync(async (req , res) =>{
         const {id} = req.params;
         const spot = await Spot.findByIdAndUpdate(id , {...req.body});
         req.flash('success', 'Successfully updated a spot!');
         res.redirect(`/spots/${spot._id}`);
     }))
-    .delete(catchAsync(async(req , res) => {
+    .delete(isLoggedIn, catchAsync(async(req , res) => {
         const {id} = req.params;
         await Spot.findByIdAndDelete(id);
         req.flash('success', 'Successfully deleted a spot!');
@@ -78,7 +79,7 @@ router.route('/:id')
     }));
 
     //Manages requests to the reviews object in Spot
-    router.post('/:id/reviews' ,validateReview , catchAsync(async (req , res) => {
+    router.post('/:id/reviews', isLoggedIn,validateReview , catchAsync(async (req , res) => {
         const spot = await Spot.findById(req.params.id);
         const review = new Review(req.body);
         spot.reviews.push(review);
@@ -88,7 +89,7 @@ router.route('/:id')
         res.redirect(`/spots/${spot._id}`);
     }))
 
-    router.delete('/:id/reviews/:reviewId', catchAsync(async (req, res) => {
+    router.delete('/:id/reviews/:reviewId', isLoggedIn, catchAsync(async (req, res) => {
         const { id, reviewId } = req.params;
         await Spot.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
         await Review.findByIdAndDelete(reviewId);
