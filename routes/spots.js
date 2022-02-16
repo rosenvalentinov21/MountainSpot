@@ -40,27 +40,40 @@ router.route('/')
     .post(validateSpot ,catchAsync(async (req , res) => {
         const spot = new Spot(req.body);
         await spot.save();
+        req.flash('success', 'Successfully made a new spot!');
         res.redirect(`spots/${spot._id}`);
     }))
 
 router.get('/:id/edit' , catchAsync(async (req , res) => {
     const spot = await Spot.findById(req.params.id);
+    if(!spot)
+    {
+        req.flash('error', 'Could not find that spot!');
+        return res.redirect('/spots');
+    }
     res.render('spots/edit', {spot});
 }))
 
 router.route('/:id')
     .get(catchAsync(async (req , res) => {
         const spot = await Spot.findById(req.params.id).populate('reviews');
+        if(!spot)
+        {
+            req.flash('error', 'Could not find that spot!');
+            return res.redirect('/spots');
+        }
         res.render('spots/show' , {spot});
     }))
     .put(validateSpot ,catchAsync(async (req , res) =>{
         const {id} = req.params;
         const spot = await Spot.findByIdAndUpdate(id , {...req.body});
+        req.flash('success', 'Successfully updated a spot!');
         res.redirect(`/spots/${spot._id}`);
     }))
     .delete(catchAsync(async(req , res) => {
         const {id} = req.params;
         await Spot.findByIdAndDelete(id);
+        req.flash('success', 'Successfully deleted a spot!');
         res.redirect('/spots');
     }));
 
@@ -71,6 +84,7 @@ router.route('/:id')
         spot.reviews.push(review);
         await review.save();
         await spot.save();
+        req.flash('success', 'Created a new review!');
         res.redirect(`/spots/${spot._id}`);
     }))
 
@@ -78,6 +92,7 @@ router.route('/:id')
         const { id, reviewId } = req.params;
         await Spot.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
         await Review.findByIdAndDelete(reviewId);
+        req.flash('success', 'Deleated a review!');
         res.redirect(`/spots/${id}`);
     }))
 
