@@ -68,7 +68,9 @@ app.use('/' , userRoutes);
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
     if (!err.message) err.message = 'Oh No, Something Went Wrong!'
-    res.status(statusCode).render('error', { err })
+    req.flash('error' , err.message);
+    res.redirect('/spots/new')
+    //res.status(statusCode).render('error', { err })
 })
 
 app.get('/', (req, res) => {
