@@ -11,6 +11,7 @@ const ExpressError = require('./middleware/expressError');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
+const Joi = require('joi');
 
 mongoose.connect('mongodb://localhost:27017/mountain-spot', {
     useNewUrlParser: true,
@@ -29,7 +30,6 @@ const port = 3000;
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
@@ -67,19 +67,16 @@ app.use('/' , userRoutes);
 
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
-    if (!err.message) err.message = 'Oh No, Something Went Wrong!'
-    req.flash('error' , err.message);
-    res.redirect('/spots/new')
+    if (!err.message) err.message = 'Oh No, Something Went Wrong!';
+        req.flash('error' , err.message);
+        console.log(err.stack);
+        res.status(statusCode).redirect('back');
     //res.status(statusCode).render('error', { err })
 })
 
 app.get('/', (req, res) => {
     res.render('index.ejs')
 });
-
-app.all('*', (req, res, next) => {
-    next(new ExpressError('Page Not Found', 404))
-})
 
 app.listen(port , () => {
     console.log(`Listening on port ${port}`);
