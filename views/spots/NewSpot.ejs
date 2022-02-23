@@ -6,25 +6,33 @@
         <form action="/spots" method="POST" novalidate class="validated-form">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
-                <input class="form-control" type="text" id="title" name="title" required>
+                <input class="form-control" type="text" id="title" name="title" required  pattern=".{3,30}">
                 <div class="valid-feedback">
                     Looks good!
                 </div>
+                <div class="invalid-feedback">
+                    Title must be from 3 to 30 characters!
+                  </div>
             </div>
             <div class="mb-3">
               <label class="form-label" for="description">Description</label>
-              <textarea class="form-control" type="text" id="description" name="description"
-                  required></textarea>
+              <textarea class="form-control" type="text" id="description" name="description" required minlength="10" maxlength="200"></textarea>
               <div class="valid-feedback">
                   Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Description must be from 10 to 200 characters!
               </div>
           </div>
             <div class="mb-3">
                 <label class="form-label" for="location">Location</label>
-                <input class="form-control" type="text" id="location" name="location" required>
+                <input class="form-control" type="text" id="location" name="location" required pattern=".{3,30}">
                 <div class="valid-feedback">
                     Looks good!
                 </div>
+                <div class="invalid-feedback">
+                    Location must be from 3 to 30 characters!
+                  </div>
             </div>
             <div class="mb-3">
                 <button class="btn btn-success">Add Spot</button>

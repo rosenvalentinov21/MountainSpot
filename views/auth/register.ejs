@@ -3,9 +3,12 @@
 <form action="/register" method="POST" class="validated-form" novalidate>
     <div class="mb-3">
         <label class="form-label" for="username">Username</label>
-        <input class="form-control" type="text" id="username" name="username" required>
+        <input class="form-control" type="text" id="username" name="username" required pattern="^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,19}[a-zA-Z0-9]$">
         <div class="valid-feedback">
             Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Enter 4 to 20 characters , you can include "." and "_" inside the string! 
         </div>
     </div>
     <div class="mb-3">
@@ -14,12 +17,19 @@
         <div class="valid-feedback">
             Looks good!
         </div>
+        <div class="invalid-feedback">
+            Enter valid email address!
+        </div>
     </div>
     <div class="mb-3">
         <label class="form-label" for="password">Password</label>
-        <input class="form-control" type="password" id="password" name="password" required>
+        <input class="form-control" type="password" id="password" name="password" required
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,20}$">
         <div class="valid-feedback">
             Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Enter between 8 and 20 characters with at least one Uppercase character,number and a symbol!
         </div>
     </div>
     <button class="btn btn-success">Register</button>
