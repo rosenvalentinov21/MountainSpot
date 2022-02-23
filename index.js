@@ -78,10 +78,6 @@ app.get('/', (req, res) => {
     res.render('index.ejs')
 });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1d313819736e74531922cabb4a85ba3f1ad9ffc0
 app.listen(port , () => {
     console.log(`Listening on port ${port}`);
 })
