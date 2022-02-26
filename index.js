@@ -73,10 +73,6 @@ app.use((err, req, res, next) => {
     //res.status(statusCode).render('error', { err })
 })
 
-app.get('/guide', (req, res) => {
-    res.render('guide.ejs')
-});
-
 app.get('/', (req, res) => {
     res.render('index.ejs')
 });
