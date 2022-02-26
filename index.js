@@ -7,7 +7,6 @@ const spotRoutes = require('./routes/spots');
 const userRoutes = require('./routes/users');
 const session = require('express-session');
 const flash = require('connect-flash');
-const ExpressError = require('./middleware/expressError');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
@@ -73,6 +72,10 @@ app.use((err, req, res, next) => {
         res.status(statusCode).redirect('back');
     //res.status(statusCode).render('error', { err })
 })
+
+app.get('/guide', (req, res) => {
+    res.render('guide.ejs')
+});
 
 app.get('/', (req, res) => {
     res.render('index.ejs')
